@@ -1,0 +1,54 @@
+html, body {
+  margin: 0px;
+  height: 100%;
+  font-family:  Helvetica, sans-serif;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-color: red;
+}
+
+#header {
+    height: 100px;
+    background-color: rgb(48, 42, 42);
+    color: white;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 80px;
+    padding-top: 10px;
+    font-size: 60px;
+}
+
+#content {
+    flex-grow: 1;
+    display: flex;
+}
+
+#footer {
+    height: 30px;
+    background-color: rgb(48, 42, 42);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar {
+    background-color: rgb(204, 204, 204);
+    flex-grow: 1;
+    padding: 30px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#main-content {
+    flex-grow: 10;
+}
+
+#projects-header {
+    color: rgb(15, 15, 58);
+}

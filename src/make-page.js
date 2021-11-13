@@ -5,6 +5,7 @@ const makePage = () => {
 
     const header = document.createElement("div");
     header.id = "header";
+    header.textContent = "Todo List";
     container.appendChild(header);
 
     const content = document.createElement("div");
@@ -13,6 +14,7 @@ const makePage = () => {
 
     const footer = document.createElement("div");
     footer.id = "footer";
+    footer.textContent = "Copyright © 2021 SamuelBrook";
     container.appendChild(footer);
 
     //add a sidebar for the activites to go into and a div for the todos to go into
@@ -27,7 +29,15 @@ const makePage = () => {
 
     //add a "add activity" button and header to the sidebar
 
+    const projectsHeader = document.createElement("div");
+    projectsHeader.id = "projects-header";
+    projectsHeader.textContent = "Projects";
+    sidebar.appendChild(projectsHeader);
+
     //add a "add todo" button and header to the main screen
+
+
+    //add function to edit text content of divs
 }
 
 export { makePage };
