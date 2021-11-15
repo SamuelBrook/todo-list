@@ -38,6 +38,15 @@ const makePage = () => {
     projectsHeader.textContent = "Projects";
     projectsContainer.appendChild(projectsHeader);
 
+    //add container only for the project titles themselves
+
+    const projectList = document.createElement("div");
+    projectList.id = "project-list";
+    projectsContainer.appendChild(projectList);
+
+
+    //add projects button added
+
     const addProjects = document.createElement("div");
     addProjects.id = "add-projects";
     projectsContainer.appendChild(addProjects);

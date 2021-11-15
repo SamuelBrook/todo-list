@@ -1,10 +1,10 @@
 const addProject = (name) => {
-    const projectsContainer = document.querySelector("#projects-container");
+    const projectList = document.querySelector("#project-list");
     const project = document.createElement("div");
     project.textContent = name;
     project.classList.add("project");
     project.id = name;
-    projectsContainer.appendChild(project);
+    projectList.appendChild(project);
 }
 
 const removeProject = () => {
