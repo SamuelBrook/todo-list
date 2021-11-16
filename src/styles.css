@@ -76,3 +76,17 @@ html, body {
     color: rgb(15, 15, 58);
     margin: 10px;
 }
+
+#main-content {
+    padding: 50px;
+    padding-left: 400px;
+}
+
+#project-title {
+    display: flex;
+    font-size: 35px;
+    color:rgb(15, 15, 58);
+    font-weight: bold;
+    margin-bottom: 16px;
+
+}

@@ -1,7 +1,8 @@
 import { makePage } from "./dom-manipulation/render-page";
-import { addProjectButton, removeProjectButton } from "./dom-manipulation/toggle-add-project-button";
+import { addProjectButton, removeProjectButton } from "./dom-manipulation/toggle-add-buttons";
 import { addProject, inputProject } from "./dom-manipulation/render-project";
 import { Project } from "./logic/make-project";
+import { renderProjectView } from "./dom-manipulation/render-todo-list";
 
 
 //adding project to project list on the sidebar
@@ -34,11 +35,24 @@ const clickAddProject = () => {
 
 const displayProject = () => {
     const projectList = document.querySelector("#project-list");
-    projectList.addEventListener("click", () => {
-        console.log("hello");
+    projectList.addEventListener("click", (e) => {
+        //e.target -> the target will return the object to which the event was dispatched
+        const target = e.target;
+        if (target.matches("li")) {
+            //call function which displays title of project
+            let title = target.textContent;
+            renderProjectView(title);
+        }
     })
+}
 
-    //create function 
+const clickAddTodo = () => {
+
+    const addButton = document.querySelector("#add-projects");
+    addButton.addEventListener("click", () => {
+        
+    });
+
 }
 
 

@@ -1,6 +1,6 @@
 const addProject = (name) => {
     const projectList = document.querySelector("#project-list");
-    const project = document.createElement("div");
+    const project = document.createElement("li");
     project.textContent = name;
     project.classList.add("project");
     project.id = name;
