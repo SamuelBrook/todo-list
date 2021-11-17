@@ -1,8 +1,8 @@
 import { makePage } from "./dom-manipulation/render-page";
-import { addProjectButton, removeProjectButton } from "./dom-manipulation/toggle-add-buttons";
+import { addProjectButton, addTaskButton, removeProjectButton, removeTaskButton } from "./dom-manipulation/toggle-add-buttons";
 import { addProject, inputProject } from "./dom-manipulation/render-project";
 import { Project } from "./logic/make-project";
-import { renderProjectView } from "./dom-manipulation/render-todo-list";
+import { renderProjectView, renderTodoItem, inputTodo } from "./dom-manipulation/render-todo-list";
 
 
 //adding project to project list on the sidebar
@@ -47,11 +47,30 @@ const displayProject = () => {
 }
 
 const clickAddTodo = () => {
+//problem here could be the (e), or a default not being active...
+    const displayInputBox = () => {
+        const addButton = document.querySelector("#main-content");
+        addButton.addEventListener("click", (e) => {
+            const target = e.target;
+            if (target.id = "add-tasks") {
+                removeTaskButton();
+                inputTodo();
+            }
+        });
+    }
+    displayInputBox();
 
-    const addButton = document.querySelector("#add-projects");
-    addButton.addEventListener("click", () => {
-        
-    });
+    // document.addEventListener("keydown", event => {
+    //     if (event.keyCode === 13) {
+    //         const text = document.querySelector("#task-input");
+    //         let taskName = text.value;
+    //         let newTask = new Todo(taskName);
+    //         text.remove();
+    //         renderTodoItem(newTask.task);
+    //     }
+    // })
+
+    
 
 }
 
@@ -62,3 +81,4 @@ const clickAddTodo = () => {
 makePage();
 clickAddProject();
 displayProject();
+clickAddTodo();

@@ -16,6 +16,8 @@ const inputProject = () => {
     const projectsContainer = document.querySelector("#projects-container");
     const projectInput = document.createElement("input");
     projectInput.id = "project-input";
+    projectInput.type = "text";
+    projectInput.focus();
     projectsContainer.appendChild(projectInput);
 }
 

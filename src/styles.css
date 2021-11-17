@@ -90,3 +90,7 @@ html, body {
     margin-bottom: 16px;
 
 }
+
+#add-tasks {
+    display:flex;
+}

@@ -23,7 +23,7 @@ const addTaskButton = () => {
     const projectsContainer = document.querySelector(`#main-content`);
 
     const addProjects = document.createElement("div");
-    addProjects.id = "add-projects";
+    addProjects.id = "add-tasks";
     projectsContainer.appendChild(addProjects);
 
     const addButton = document.createElement("div");
@@ -39,10 +39,15 @@ const addTaskButton = () => {
     
 }
 
+const removeTaskButton = () => {
+    const addTask = document.querySelector("#add-tasks");
+    addTask.remove();
+}
+
 
 const removeProjectButton = () => {
     const addProject = document.querySelector("#add-projects");
     addProject.remove();
 }
 
-export { addProjectButton, removeProjectButton, addTaskButton };
+export { addProjectButton, removeProjectButton, addTaskButton, removeTaskButton };

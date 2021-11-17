@@ -42,5 +42,12 @@ const renderTodoItem = (name) => {
 
 }
 
+const inputTodo = () => {
+    const projectsContainer = document.querySelector("#main-content");
+    const taskInput = document.createElement("input");
+    taskInput.id = "task-input";
+    projectsContainer.appendChild(taskInput);
+}
 
-export { renderProjectView };
+
+export { renderProjectView, renderTodoItem, inputTodo };
