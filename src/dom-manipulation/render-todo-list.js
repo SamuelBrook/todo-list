@@ -3,10 +3,13 @@ import { addTaskButton } from "./toggle-add-buttons";
 const renderProjectView = (name) => {
     //add title from project name in sidebar
     const mainContent = document.querySelector("#main-content");
+    const project = document.createElement("div");
+    project.id = "project-view-container";
+    mainContent.appendChild(project);
     const projectTitle = document.createElement("div");
     projectTitle.id = "project-title";
     projectTitle.textContent = name;
-    mainContent.appendChild(projectTitle);
+    project.appendChild(projectTitle);
 
     //add an add task button
     addTaskButton();
@@ -14,7 +17,7 @@ const renderProjectView = (name) => {
     //render todo box (container for todos)
     const todoBox = document.createElement("div");
     todoBox.id = "todo-box";
-    mainContent.appendChild(todoBox);
+    project.appendChild(todoBox);
 }
 
 const renderTodoItem = (name) => {
@@ -27,12 +30,13 @@ const renderTodoItem = (name) => {
     //add name and due date to todoItem
     const todoName = document.createElement("div");
     todoName.id = "todo-name";
+    todoName.textContent = name;
     todoItem.appendChild(todoName);
 
     const todoDate = document.createElement("input");
     todoDate.type = "date";
     todoDate.id = "todo-date";
-    todoBox.appendChild(todoDate);
+    todoItem.appendChild(todoDate);
 
     // add x to end
     const todoDeleteButton = document.createElement("div");
@@ -50,4 +54,12 @@ const inputTodo = () => {
 }
 
 
-export { renderProjectView, renderTodoItem, inputTodo };
+const removeCurrentProject = () => {
+    const projectView = document.querySelector("#main-content");
+    if (projectView.hasChildNodes()) {
+        projectView.removeChild(projectView.childNodes[0]);
+    }
+}
+
+
+export { renderProjectView, renderTodoItem, inputTodo, removeCurrentProject };

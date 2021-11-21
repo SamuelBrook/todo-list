@@ -1,10 +1,17 @@
 const addProject = (name) => {
     const projectList = document.querySelector("#project-list");
+    const projectBox = document.createElement("div");
+    projectBox.id = "project-box";
+    projectList.appendChild(projectBox);
     const project = document.createElement("li");
-    project.textContent = name;
     project.classList.add("project");
+    project.textContent = name;
     project.id = name;
-    projectList.appendChild(project);
+    projectBox.appendChild(project);
+    const removeButton = document.createElement("div");
+    removeButton.id = "remove-project";
+    removeButton.textContent = "x";
+    projectBox.appendChild(removeButton);
 }
 
 const removeProject = () => {

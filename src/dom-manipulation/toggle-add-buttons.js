@@ -20,7 +20,7 @@ const addProjectButton = () => {
 
 const addTaskButton = () => {
 
-    const projectsContainer = document.querySelector(`#main-content`);
+    const projectsContainer = document.querySelector(`#project-view-container`);
 
     const addProjects = document.createElement("div");
     addProjects.id = "add-tasks";

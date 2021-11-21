@@ -1,7 +1,8 @@
 class Todo {
-    constructor(task, dueDate) {
+    constructor(task, dueDate, project) {
         this.task = task;
         this.dueDate = dueDate;
+        this.project = project;
     }
 
     setTitle(task) {
@@ -13,3 +14,5 @@ class Todo {
     }
     
 }
+
+export { Todo };

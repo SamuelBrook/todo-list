@@ -77,6 +77,19 @@ html, body {
     margin: 10px;
 }
 
+#project-box {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    width: 144px;
+
+}
+
+#remove-project {
+    display: flex;
+    align-items: center;
+}
+
 #main-content {
     padding: 50px;
     padding-left: 400px;
@@ -87,10 +100,32 @@ html, body {
     font-size: 35px;
     color:rgb(15, 15, 58);
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 
 }
 
 #add-tasks {
-    display:flex;
+    display: flex;
+}
+
+#add-tasks {
+    margin-top: 20px;
+}
+
+#todo-item {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    justify-content: space-between;
+    margin: 16px;
+}
+
+#todo-date {
+    margin-left: auto;
+    margin-right: 32px;
+}
+
+#todo-delete {
+    display: flex;
+    align-items: center;
 }

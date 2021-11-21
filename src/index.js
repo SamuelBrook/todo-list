@@ -2,83 +2,122 @@ import { makePage } from "./dom-manipulation/render-page";
 import { addProjectButton, addTaskButton, removeProjectButton, removeTaskButton } from "./dom-manipulation/toggle-add-buttons";
 import { addProject, inputProject } from "./dom-manipulation/render-project";
 import { Project } from "./logic/make-project";
-import { renderProjectView, renderTodoItem, inputTodo } from "./dom-manipulation/render-todo-list";
+import { renderProjectView, renderTodoItem, inputTodo, removeCurrentProject } from "./dom-manipulation/render-todo-list";
+import { Todo } from "./logic/make-todo";
+import { saveTodoToLocalStorage, saveProjectToLocalStorage, retrieveProjectFromLocalStorage } from "./logic/local-storage-interactions";
 
 
-//adding project to project list on the sidebar
-const clickAddProject = () => {
 
-    //create function for displaying box for inputting project name
+
+const projectAndTodoController = () => {
+
+    let projectOpened = false;
+    let projectClosed = true;
+    let projectArray = [];
+    let todoArray = [];
+
+    // display project list if project list array length > 0
+    projectArray = retrieveProjectFromLocalStorage();
+    console.log(projectArray);
+    if (projectArray === null) {
+        projectArray = [];
+    }
+    else {
+        for (let i = 0; i < projectArray.length; i++) {
+            addProject(projectArray[i].title);
+        }
+    } // -> this is for when the page first loads (for projects its not neccessary to store the projects for any other reason)
+
+
+
+    // add project input box when add button clicked
     const displayInputBox = () => {
         const addButton = document.querySelector("#add-projects");
         addButton.addEventListener("click", () => {
+            projectOpened = false;
             removeProjectButton();
             inputProject();
         });
     }
     displayInputBox();
 
-    // when "enter" key pressed, adds the project to the project list
+    // add project to the list with "enter" key
     document.addEventListener("keydown", event => {
-        if (event.keyCode === 13) {
+        if (event.keyCode === 13 && projectOpened === false) {
             const text = document.querySelector("#project-input");
             let projectName = text.value;
-            let newProject = new Project(projectName);
+            projectName = new Project(projectName);
             text.remove();
-            addProject(newProject.title);
+            addProject(projectName.title);
             addProjectButton();
             displayInputBox();
+            projectClosed = false;
+            projectArray.push(projectName);
+            saveProjectToLocalStorage(projectArray);
         }
     })
-}
 
-
-const displayProject = () => {
-    const projectList = document.querySelector("#project-list");
-    projectList.addEventListener("click", (e) => {
-        //e.target -> the target will return the object to which the event was dispatched
-        const target = e.target;
-        if (target.matches("li")) {
-            //call function which displays title of project
-            let title = target.textContent;
-            renderProjectView(title);
-        }
-    })
-}
-
-const clickAddTodo = () => {
-//problem here could be the (e), or a default not being active...
-    const displayInputBox = () => {
-        const addButton = document.querySelector("#main-content");
-        addButton.addEventListener("click", (e) => {
-            const target = e.target;
-            if (target.id = "add-tasks") {
-                removeTaskButton();
-                inputTodo();
-            }
-        });
+    // add todo input box when add button clicked
+    const addTask = () => {
+        const addTaskButton = document.querySelector("#add-tasks");
+        addTaskButton.addEventListener("click", () => {
+            removeTaskButton();
+            inputTodo();
+        })
     }
-    displayInputBox();
-
-    // document.addEventListener("keydown", event => {
-    //     if (event.keyCode === 13) {
-    //         const text = document.querySelector("#task-input");
-    //         let taskName = text.value;
-    //         let newTask = new Todo(taskName);
-    //         text.remove();
-    //         renderTodoItem(newTask.task);
-    //     }
-    // })
-
     
+    // display the project view when project clicked in sidebar
+    const displayProject = () => {
+        const projectList = document.querySelector("#project-list");
+        projectList.addEventListener("click", (e) => {
+            const target = e.target;
+            if (target.matches("li")) {
+                if (projectClosed === true) {
+                    let title = target.textContent;
+                    renderProjectView(title);
+                    projectOpened = true;
+                }
+                else {
+                    removeCurrentProject();
+                    let title = target.textContent;
+                    renderProjectView(title);
+                    projectOpened = true;
+                }
+            }
+            addTask();
+           
+        })
+    }
+    displayProject();
 
+    // add todo to the todo list when "enter" key is pressed
+    document.addEventListener("keydown", event => {
+        if (event.keyCode === 13 && projectOpened === true) {
+            const projectTitle = document.getElementById("project-title");
+            let projectHeader = projectTitle.textContent;
+            const text = document.querySelector("#task-input");
+            let taskName = text.value;
+            taskName = new Todo(taskName, "0", projectHeader);
+            text.remove();
+            renderTodoItem(taskName.task);
+            addTaskButton();
+            addTask();
+            todoArray.push(taskName);
+            saveTodoToLocalStorage(todoArray);
+        }
+    })
+
+
+    //remove project when clicked
 }
+
+
+
+
 
 
 
 
 
 makePage();
-clickAddProject();
-displayProject();
-clickAddTodo();
+projectAndTodoController();
