@@ -1,8 +1,8 @@
 import { makePage } from "./dom-manipulation/render-page";
 import { addProjectButton, addTaskButton, removeProjectButton, removeTaskButton } from "./dom-manipulation/toggle-add-buttons";
-import { addProject, inputProject } from "./dom-manipulation/render-project";
+import { addProject, inputProject, removeProjectFromList } from "./dom-manipulation/toggle-project";
 import { Project } from "./logic/make-project";
-import { renderProjectView, renderTodoItem, inputTodo, removeCurrentProject } from "./dom-manipulation/render-todo-list";
+import { renderProjectView, renderTodoItem, inputTodo, removeCurrentProject } from "./dom-manipulation/toggle-todo-list";
 import { Todo } from "./logic/make-todo";
 import { saveTodoToLocalStorage, saveProjectToLocalStorage, retrieveProjectFromLocalStorage } from "./logic/local-storage-interactions";
 
@@ -15,6 +15,13 @@ const projectAndTodoController = () => {
     let projectClosed = true;
     let projectArray = [];
     let todoArray = [];
+
+
+    const previewProject = new Project("New Project");
+
+    if (projectArray.length < 1) {
+        addProject(previewProject.title);
+    }
 
     // display project list if project list array length > 0
     projectArray = retrieveProjectFromLocalStorage();
@@ -44,6 +51,9 @@ const projectAndTodoController = () => {
     // add project to the list with "enter" key
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === false) {
+            projectArray = retrieveProjectFromLocalStorage();
+            console.log(projectArray);
+            console.log("prokect")
             const text = document.querySelector("#project-input");
             let projectName = text.value;
             projectName = new Project(projectName);
@@ -65,11 +75,34 @@ const projectAndTodoController = () => {
             inputTodo();
         })
     }
+
+    // remove project when "x" clicked (including from array, then send array to local storage)
+    const removeProject = () => {
+        const projectList = document.querySelector("#project-list");
+        projectList.addEventListener("click", (e) => {
+            const target = e.target;
+            let idOfTarget = target.id;
+            console.log(idOfTarget);
+            if (target.classList.contains("remove-project")) {
+                projectArray = retrieveProjectFromLocalStorage();
+                for (let i = 0; i < projectArray.length; i++) {
+                    if (idOfTarget.id === projectArray[i].title) {
+                        projectArray.splice(i, 1);
+                        console.log(projectArray);
+                    }
+                }
+                saveProjectToLocalStorage(projectArray);
+            }
+            removeProjectFromList();
+        })
+    }
+    removeProject();
     
     // display the project view when project clicked in sidebar
     const displayProject = () => {
         const projectList = document.querySelector("#project-list");
         projectList.addEventListener("click", (e) => {
+            // console.log(projectClosed);
             const target = e.target;
             if (target.matches("li")) {
                 if (projectClosed === true) {
@@ -83,8 +116,10 @@ const projectAndTodoController = () => {
                     renderProjectView(title);
                     projectOpened = true;
                 }
+                projectClosed = false;
             }
             addTask();
+            console.log(projectClosed);
            
         })
     }
@@ -93,6 +128,7 @@ const projectAndTodoController = () => {
     // add todo to the todo list when "enter" key is pressed
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === true) {
+            console.log("task");
             const projectTitle = document.getElementById("project-title");
             let projectHeader = projectTitle.textContent;
             const text = document.querySelector("#task-input");

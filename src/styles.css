@@ -79,13 +79,13 @@ html, body {
 
 #project-box {
     display: flex;
-    gap: 40px;
+    gap: 16px;
     justify-content: space-between;
-    width: 144px;
+    width: 234px;
 
 }
 
-#remove-project {
+.remove-project {
     display: flex;
     align-items: center;
 }
