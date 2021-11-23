@@ -25,7 +25,6 @@ const projectAndTodoController = () => {
 
     // display project list if project list array length > 0
     projectArray = retrieveProjectFromLocalStorage();
-    console.log(projectArray);
     if (projectArray === null) {
         projectArray = [];
     }
@@ -81,19 +80,16 @@ const projectAndTodoController = () => {
         const projectList = document.querySelector("#project-list");
         projectList.addEventListener("click", (e) => {
             const target = e.target;
-            let idOfTarget = target.id;
-            console.log(idOfTarget);
             if (target.classList.contains("remove-project")) {
                 projectArray = retrieveProjectFromLocalStorage();
                 for (let i = 0; i < projectArray.length; i++) {
-                    if (idOfTarget.id === projectArray[i].title) {
+                    if (target.id == projectArray[i].title) {
                         projectArray.splice(i, 1);
-                        console.log(projectArray);
+                        target.parentElement.remove();
                     }
                 }
                 saveProjectToLocalStorage(projectArray);
             }
-            removeProjectFromList();
         })
     }
     removeProject();
@@ -117,10 +113,8 @@ const projectAndTodoController = () => {
                     projectOpened = true;
                 }
                 projectClosed = false;
-            }
-            addTask();
-            console.log(projectClosed);
-           
+                addTask();
+            }           
         })
     }
     displayProject();

@@ -15,15 +15,15 @@ const addProject = (name) => {
     projectBox.appendChild(removeButton);
 }
 
-const removeProjectFromList = () => {
-    const projectList = document.querySelector("#project-list");
-    projectList.addEventListener("click", (e) => {
-        const target = e.target;
-        if (target.classList.contains("remove-project")) {
-            target.parentElement.remove();
-        }
-    })
-}
+// const removeProjectFromList = () => {
+//     const projectList = document.querySelector("#project-list");
+//     projectList.addEventListener("click", (e) => {
+//         const target = e.target;
+//         if (target.classList.contains("remove-project")) {
+//             target.parentElement.remove();
+//         }
+//     })
+// }
 
 // const removeProjectFromArray = (array) => {
 //     let myArray = array;
