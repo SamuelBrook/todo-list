@@ -1,10 +1,10 @@
 import { makePage } from "./dom-manipulation/render-page";
 import { addProjectButton, addTaskButton, removeProjectButton, removeTaskButton } from "./dom-manipulation/toggle-add-buttons";
-import { addProject, inputProject, removeProjectFromList } from "./dom-manipulation/toggle-project";
+import { addProject, inputProject } from "./dom-manipulation/toggle-project";
 import { Project } from "./logic/make-project";
 import { renderProjectView, renderTodoItem, inputTodo, removeCurrentProject } from "./dom-manipulation/toggle-todo-list";
 import { Todo } from "./logic/make-todo";
-import { saveTodoToLocalStorage, saveProjectToLocalStorage, retrieveProjectFromLocalStorage } from "./logic/local-storage-interactions";
+import { saveTodoToLocalStorage, saveProjectToLocalStorage, retrieveProjectFromLocalStorage, retrieveTodoFromLocalStorage } from "./logic/local-storage-interactions";
 
 
 
@@ -51,8 +51,6 @@ const projectAndTodoController = () => {
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === false) {
             projectArray = retrieveProjectFromLocalStorage();
-            console.log(projectArray);
-            console.log("prokect")
             const text = document.querySelector("#project-input");
             let projectName = text.value;
             projectName = new Project(projectName);
@@ -83,7 +81,7 @@ const projectAndTodoController = () => {
             if (target.classList.contains("remove-project")) {
                 projectArray = retrieveProjectFromLocalStorage();
                 for (let i = 0; i < projectArray.length; i++) {
-                    if (target.id == projectArray[i].title) {
+                    if (target.id === projectArray[i].title) {
                         projectArray.splice(i, 1);
                         target.parentElement.remove();
                     }
@@ -98,7 +96,6 @@ const projectAndTodoController = () => {
     const displayProject = () => {
         const projectList = document.querySelector("#project-list");
         projectList.addEventListener("click", (e) => {
-            // console.log(projectClosed);
             const target = e.target;
             if (target.matches("li")) {
                 if (projectClosed === true) {
@@ -122,9 +119,10 @@ const projectAndTodoController = () => {
     // add todo to the todo list when "enter" key is pressed
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === true) {
-            console.log("task");
+            todoArray = retrieveTodoFromLocalStorage();
             const projectTitle = document.getElementById("project-title");
             let projectHeader = projectTitle.textContent;
+            console.log(projectHeader);
             const text = document.querySelector("#task-input");
             let taskName = text.value;
             taskName = new Todo(taskName, "0", projectHeader);
@@ -137,8 +135,25 @@ const projectAndTodoController = () => {
         }
     })
 
+    //remove task from task list in project view and remove task from the todo array
+    const removeTask = () => {
+        const projectList = document.querySelector("#main-content");
+        projectList.addEventListener("click", (e) => {
+            const target = e.target;
+            if (target.classList.contains("todo-delete")) {
+                todoArray = retrieveTodoFromLocalStorage();
+                for (let i = 0; i < todoArray.length; i++) {
+                    if (target.id === todoArray[i].title) {
+                        todoArray.splice(i, 1);
+                        target.parentElement.remove();
+                    }
+                }
+                saveTodoToLocalStorage(todoArray);
+            }
 
-    //remove project when clicked
+        })
+    }
+    removeTask();
 }
 
 

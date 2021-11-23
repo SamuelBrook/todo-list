@@ -60,4 +60,4 @@ const inputProject = () => {
     projectsContainer.appendChild(projectInput);
 }
 
-export { addProject, removeProjectFromList, inputProject }; 
+export { addProject, inputProject }; 

@@ -40,7 +40,8 @@ const renderTodoItem = (name) => {
 
     // add x to end
     const todoDeleteButton = document.createElement("div");
-    todoDeleteButton.id = "todo-delete";
+    todoDeleteButton.id = name;
+    todoDeleteButton.classList.add("todo-delete");
     todoDeleteButton.textContent = "x";
     todoItem.appendChild(todoDeleteButton);
 
