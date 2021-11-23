@@ -122,7 +122,6 @@ const projectAndTodoController = () => {
             todoArray = retrieveTodoFromLocalStorage();
             const projectTitle = document.getElementById("project-title");
             let projectHeader = projectTitle.textContent;
-            console.log(projectHeader);
             const text = document.querySelector("#task-input");
             let taskName = text.value;
             taskName = new Todo(taskName, "0", projectHeader);
