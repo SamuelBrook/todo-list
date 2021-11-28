@@ -3,7 +3,7 @@ const saveTodoToLocalStorage = (todos) => {
 }
 
 const retrieveTodoFromLocalStorage = () => {
-    return JSON.parse(window.localStorage.getItem("todo"));
+    return JSON.parse(window.localStorage.getItem("todos"));
 }
 
 const saveProjectToLocalStorage = (projects) => {

@@ -13,28 +13,26 @@ const projectAndTodoController = () => {
 
     let projectOpened = false;
     let projectClosed = true;
-    let projectArray = [];
-    let todoArray = [];
+    let projectArray = retrieveProjectFromLocalStorage();
+    let todoArray = retrieveTodoFromLocalStorage();
 
+    console.log(todoArray);
+    const previewProject = new Project("Create projects here");
+    const previewTodo = new Todo("Add tasks here", 0, "Create projects here");
 
-    const previewProject = new Project("New Project");
-
-    if (projectArray.length < 1) {
-        addProject(previewProject.title);
+    if (projectArray.length < 1 || projectArray === null) {
+        projectArray.push(previewProject);
+        saveProjectToLocalStorage(projectArray);
     }
 
-    // display project list if project list array length > 0
-    projectArray = retrieveProjectFromLocalStorage();
-    if (projectArray === null) {
-        projectArray = [];
+    if (todoArray.length < 1 || todoArray === null) {
+        todoArray.push(previewTodo);
+        saveTodoToLocalStorage(todoArray);
     }
-    else {
-        for (let i = 0; i < projectArray.length; i++) {
-            addProject(projectArray[i].title);
-        }
-    } // -> this is for when the page first loads (for projects its not neccessary to store the projects for any other reason)
 
-
+    for (let i = 0; i < projectArray.length; i++) {
+        addProject(projectArray[i].title);
+    }
 
     // add project input box when add button clicked
     const displayInputBox = () => {
@@ -50,7 +48,9 @@ const projectAndTodoController = () => {
     // add project to the list with "enter" key
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === false) {
+            console.log("project");
             projectArray = retrieveProjectFromLocalStorage();
+            
             const text = document.querySelector("#project-input");
             let projectName = text.value;
             projectName = new Project(projectName);
@@ -82,16 +82,45 @@ const projectAndTodoController = () => {
                 projectArray = retrieveProjectFromLocalStorage();
                 for (let i = 0; i < projectArray.length; i++) {
                     if (target.id === projectArray[i].title) {
+                        todoArray = retrieveTodoFromLocalStorage();
+                        for (let j = 0; j < todoArray.length; j++) {
+                            if (projectArray[i].title === todoArray[j].project) {
+                                todoArray.splice(j, 1);
+                            }
+                        }
                         projectArray.splice(i, 1);
                         target.parentElement.remove();
                     }
                 }
+                saveTodoToLocalStorage(todoArray);
                 saveProjectToLocalStorage(projectArray);
+                console.log(todoArray);
+                console.log(projectArray);
             }
         })
     }
     removeProject();
-    
+
+    const saveProjectDate = () => {
+        const mainContent = document.querySelector("#main-content");
+        mainContent.addEventListener("input", (e) => {
+            const target = e.target;
+            if (target.matches("input")) {
+                let date = target.value;
+                todoArray = retrieveTodoFromLocalStorage();
+                for (let i = 0; i < todoArray.length; i++) {
+                    if (todoArray[i].task === target.id) {
+                        todoArray[i].dueDate = date;
+
+                    }
+                }
+                saveTodoToLocalStorage(todoArray);
+
+            }
+        })
+      
+    }
+
     // display the project view when project clicked in sidebar
     const displayProject = () => {
         const projectList = document.querySelector("#project-list");
@@ -109,8 +138,26 @@ const projectAndTodoController = () => {
                     renderProjectView(title);
                     projectOpened = true;
                 }
-                projectClosed = false;
+                
+
+                todoArray = retrieveTodoFromLocalStorage();
+                let todoArrayDisplay = [];
+            
+                for (let i = 0; i < todoArray.length; i++) {
+                    if (todoArray[i].project === target.id) {
+                        todoArrayDisplay.push(todoArray[i]);
+                    }
+                }
+                for (let i = 0; i < todoArrayDisplay.length; i++) {
+                    renderTodoItem(todoArrayDisplay[i].task, todoArrayDisplay[i].dueDate);
+                }
+                
+
+                addTaskButton();
                 addTask();
+                projectClosed = false;
+                saveProjectDate();
+
             }           
         })
     }
@@ -119,7 +166,11 @@ const projectAndTodoController = () => {
     // add todo to the todo list when "enter" key is pressed
     document.addEventListener("keydown", event => {
         if (event.keyCode === 13 && projectOpened === true) {
+            console.log("task");
             todoArray = retrieveTodoFromLocalStorage();
+            if (todoArray === null || todoArray === undefined || todoArray === 0) {
+                todoArray = [];
+            }
             const projectTitle = document.getElementById("project-title");
             let projectHeader = projectTitle.textContent;
             const text = document.querySelector("#task-input");
@@ -142,7 +193,7 @@ const projectAndTodoController = () => {
             if (target.classList.contains("todo-delete")) {
                 todoArray = retrieveTodoFromLocalStorage();
                 for (let i = 0; i < todoArray.length; i++) {
-                    if (target.id === todoArray[i].title) {
+                    if (target.id === todoArray[i].task) {
                         todoArray.splice(i, 1);
                         target.parentElement.remove();
                     }
@@ -153,6 +204,13 @@ const projectAndTodoController = () => {
         })
     }
     removeTask();
+
+
+
+
+   
+    
+
 }
 
 

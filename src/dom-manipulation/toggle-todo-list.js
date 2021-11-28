@@ -1,4 +1,34 @@
 import { addTaskButton } from "./toggle-add-buttons";
+import { retrieveTodoFromLocalStorage } from "../logic/local-storage-interactions";
+
+const renderTodoItem = (name, date) => {
+    //create item with name
+    const todoBox = document.querySelector("#todo-box");
+    const todoItem = document.createElement("div");
+    todoItem.id = "todo-item";
+    todoBox.appendChild(todoItem);
+
+    //add name and due date to todoItem
+    const todoName = document.createElement("li");
+    todoName.id = "todo-name";
+    todoName.textContent = name;
+    todoItem.appendChild(todoName);
+
+    const todoDate = document.createElement("input");
+    todoDate.type = "date";
+    todoDate.id = name;
+    todoDate.classList.add("todo-date");
+    todoDate.value = date;
+    todoItem.appendChild(todoDate);
+
+    // add x to end
+    const todoDeleteButton = document.createElement("div");
+    todoDeleteButton.id = name;
+    todoDeleteButton.classList.add("todo-delete");
+    todoDeleteButton.textContent = "x";
+    todoItem.appendChild(todoDeleteButton);
+
+}
 
 const renderProjectView = (name) => {
     //add title from project name in sidebar
@@ -11,8 +41,9 @@ const renderProjectView = (name) => {
     projectTitle.textContent = name;
     project.appendChild(projectTitle);
 
+
     //add an add task button
-    addTaskButton();
+    // addTaskButton();
 
     //render todo box (container for todos)
     const todoBox = document.createElement("div");
@@ -20,32 +51,7 @@ const renderProjectView = (name) => {
     project.appendChild(todoBox);
 }
 
-const renderTodoItem = (name) => {
-    //create item with name
-    const todoBox = document.querySelector("#todo-box");
-    const todoItem = document.createElement("div");
-    todoItem.id = "todo-item";
-    todoBox.appendChild(todoItem);
 
-    //add name and due date to todoItem
-    const todoName = document.createElement("div");
-    todoName.id = "todo-name";
-    todoName.textContent = name;
-    todoItem.appendChild(todoName);
-
-    const todoDate = document.createElement("input");
-    todoDate.type = "date";
-    todoDate.id = "todo-date";
-    todoItem.appendChild(todoDate);
-
-    // add x to end
-    const todoDeleteButton = document.createElement("div");
-    todoDeleteButton.id = name;
-    todoDeleteButton.classList.add("todo-delete");
-    todoDeleteButton.textContent = "x";
-    todoItem.appendChild(todoDeleteButton);
-
-}
 
 const inputTodo = () => {
     const projectsContainer = document.querySelector("#main-content");

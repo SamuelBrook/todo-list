@@ -77,12 +77,16 @@ html, body {
     margin: 10px;
 }
 
+#todo-name {
+    color: rgb(15, 15, 58);
+    font-size: 18px;
+}
+
 #project-box {
     display: flex;
     gap: 16px;
     justify-content: space-between;
     width: 234px;
-
 }
 
 .remove-project {
@@ -120,7 +124,7 @@ html, body {
     margin: 16px;
 }
 
-#todo-date {
+.todo-date {
     margin-left: auto;
     margin-right: 32px;
 }
