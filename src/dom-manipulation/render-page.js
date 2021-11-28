@@ -1,3 +1,6 @@
+import { addProjectButton } from "./toggle-add-buttons";
+
+
 const makePage = () => {
     const container = document.querySelector("#container");
 
@@ -29,15 +32,26 @@ const makePage = () => {
 
     //add a "add activity" button and header to the sidebar
 
+    const projectsContainer = document.createElement("div");
+    projectsContainer.id = "projects-container";
+    sidebar.appendChild(projectsContainer);
+
     const projectsHeader = document.createElement("div");
     projectsHeader.id = "projects-header";
     projectsHeader.textContent = "Projects";
-    sidebar.appendChild(projectsHeader);
+    projectsContainer.appendChild(projectsHeader);
 
-    //add a "add todo" button and header to the main screen
+    
+
+    //add container only for the project titles themselves
+
+    const projectList = document.createElement("ul");
+    projectList.id = "project-list";
+    projectsContainer.appendChild(projectList);
 
 
-    //add function to edit text content of divs
+    //add projects button added
+    addProjectButton();
 }
 
 export { makePage };

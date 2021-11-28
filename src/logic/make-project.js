@@ -1,4 +1,4 @@
-class Activity {
+class Project {
     constructor(title) {
         this.title = title;
     }
@@ -7,3 +7,5 @@ class Activity {
         this.title = title;
     }
 }
+
+export { Project };

@@ -39,16 +39,97 @@ html, body {
 
 #sidebar {
     background-color: rgb(204, 204, 204);
-    flex-grow: 1;
-    padding: 30px;
-    font-size: 24px;
-    font-weight: bold;
+    width: 280px;
+    padding: 32px;
 }
 
 #main-content {
-    flex-grow: 10;
+    flex-grow: 13;
 }
 
 #projects-header {
     color: rgb(15, 15, 58);
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#add-projects {
+    color:rgb(15, 15, 58);
+    display: flex;
+}
+
+#add-project-text {
+    font-size: 18px;
+    padding-top: 3px;
+}
+
+#add-button {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+    font-family: sans-serif;
+}
+
+.project {
+    font-size: 18px;
+    color: rgb(15, 15, 58);
+    margin: 10px;
+}
+
+#todo-name {
+    color: rgb(15, 15, 58);
+    font-size: 18px;
+}
+
+#project-box {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    width: 234px;
+}
+
+.remove-project {
+    display: flex;
+    align-items: center;
+}
+
+#main-content {
+    padding: 50px;
+    padding-left: 400px;
+}
+
+#project-title {
+    display: flex;
+    font-size: 35px;
+    color:rgb(15, 15, 58);
+    font-weight: bold;
+    margin-bottom: 32px;
+
+}
+
+#add-tasks {
+    display: flex;
+}
+
+#add-tasks {
+    margin-top: 20px;
+}
+
+#todo-item {
+    display: flex;
+    flex-direction: row;
+    width: 700px;
+    justify-content: space-between;
+    margin: 16px;
+}
+
+.todo-date {
+    margin-left: auto;
+    margin-right: 32px;
+}
+
+#todo-delete {
+    display: flex;
+    align-items: center;
 }
